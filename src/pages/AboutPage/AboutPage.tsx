@@ -11,13 +11,10 @@ import {
   Anchor,
   Shield,
   Trophy,
-  ChevronRight,
   Star,
   Calendar,
-  Briefcase,
-  ImportIcon,
 } from "lucide-react"
-import { Link } from "react-router-dom"
+
 
 const milestones = [
   {
@@ -362,37 +359,31 @@ export default function About() {
             {/* Timeline line */}
             <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-blue-100 rounded-full"></div>
 
-            <div className="space-y-12">
-              {milestones.map((milestone, index) => (
-                <div
-                  key={index}
-                  className={`relative flex items-center justify-between ${index % 2 === 0 ? "flex-row" : "flex-row-reverse"} opacity-1111 translate-y-10 transition-all duration-1000`}
-                  style={{ transitionDelay: `${index * 150}ms` }}
-                  ref={(el) => {
-                    if (timelineRef.current) {
-                      const div = document.createElement("div")
-                      div.style.transitionDelay = `${index * 150}ms`
-                      div.className = "animate-in"
-                      timelineRef.current.appendChild(div)
-                    }
-                  }}
-                >
-                  <div className={`w-5/12 ${index % 2 === 0 ? "text-right pr-8" : "text-left pl-8"}`}>
-                    <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow border-t-4 border-blue-500">
-                      <div className=" text-[#006a70] font-bold text-xl mb-2">{milestone.year}</div>
-                      <h3 className="text-lg font-bold text-gray-900 mb-2">{milestone.title}</h3>
-                      <p className="text-gray-600">{milestone.description}</p>
-                    </div>
-                  </div>
+            <div className="space-y-12" ref={timelineRef}>
+    {milestones.map((milestone, index) => (
+      <div
+        key={index}
+        className={`relative flex items-center justify-between ${
+          index % 2 === 0 ? "flex-row" : "flex-row-reverse"
+        }  translate-y-10 transition-all duration-1000`}
+        style={{ transitionDelay: `${index * 150}ms` }}
+      >
+        <div className={`w-5/12 ${index % 2 === 0 ? "text-right pr-8" : "text-left pl-8"}`}>
+          <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow border-t-4 border-blue-500">
+            <div className="text-[#006a70] font-bold text-xl mb-2">{milestone.year}</div>
+            <h3 className="text-lg font-bold text-gray-900 mb-2">{milestone.title}</h3>
+            <p className="text-gray-600">{milestone.description}</p>
+          </div>
+        </div>
 
-                  <div className="absolute left-1/2 transform -translate-x-1/2 flex items-center justify-center">
-                    <div className="h-8 w-8 bg-blue-500 rounded-full border-4 border-white shadow"></div>
-                  </div>
+        <div className="absolute left-1/2 transform -translate-x-1/2 flex items-center justify-center">
+          <div className="h-8 w-8 bg-blue-500 rounded-full border-4 border-white shadow"></div>
+        </div>
 
-                  <div className="w-5/12"></div>
-                </div>
-              ))}
-            </div>
+        <div className="w-5/12"></div>
+      </div>
+    ))}
+  </div>
           </div>
         </div>
         <div className="absolute top-0 left-0 w-full overflow-hidden leading-none transform rotate-180">

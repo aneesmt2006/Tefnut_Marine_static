@@ -1,10 +1,9 @@
 "use client"
 
 import { useState, useRef, useEffect, FormEvent } from "react"
-import { Mail, Phone, MapPin, Send, Clock, CheckCircle, AlertCircle, Anchor, Compass } from "lucide-react"
+import { Mail, Phone, MapPin, Send, Clock, CheckCircle, AlertCircle } from "lucide-react"
 import emailjs from "@emailjs/browser"
 import Navbar from "@/components/Navbar"
-import Footer from "@/components/footer"
 interface FormData {
     name: string
     email: string
@@ -28,13 +27,7 @@ interface FormData {
     message?: string
   }
   
-  interface Office {
-    name: string
-    address: string
-    phone: string
-    email: string
-    hours: string
-  }
+ 
 
 export const Contact: React.FC = () => {
   const [formData, setFormData] = useState<FormData>({

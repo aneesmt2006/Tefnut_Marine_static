@@ -1,4 +1,4 @@
-import { useRef, useEffect } from "react";
+import { useRef } from "react";
 import { Anchor, Compass, Shield, Wrench, LifeBuoy, Ship, ChevronRight } from "lucide-react";
 
 const services = [

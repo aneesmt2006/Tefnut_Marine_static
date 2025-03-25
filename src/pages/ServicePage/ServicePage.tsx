@@ -1,7 +1,7 @@
 "use client"
 
 import { useRef, useEffect } from "react"
-import { Anchor, Compass, Shield, Wrench, LifeBuoy ,Scan,CheckCircle, ArrowRight,Ruler } from "lucide-react"
+import {Wrench,CheckCircle, ArrowRight, } from "lucide-react"
 import { Link } from "react-router-dom"
 import Navbar from "@/components/Navbar"
 import Footer from "@/components/footer"
@@ -140,7 +140,8 @@ const services = [
 ]
 
 export default function Services() {
-  const sectionRefs = useRef([])
+  const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
+
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -240,68 +241,56 @@ export default function Services() {
           <div className="space-y-32">
             {services.map((service, index) => (
               <div
-                id={service.id}
-                key={service.id}
-                ref={(el) => (sectionRefs.current[index] = el)}
-                className="scroll-mt-20 opacity-0 translate-y-10 transition-all duration-1000"
-                style={{ transitionDelay: `${index * 50}ms` }}
+              id={service.id}
+              key={service.id}
+              ref={(el) => {
+                if (el) sectionRefs.current[index] = el // ✅ Just assign, don't return
+              }}
+              className="scroll-mt-20 opacity-0 translate-y-10 transition-all duration-1000"
+              style={{ transitionDelay: `${index * 50}ms` }}
+            >
+              <div
+                className={`relative rounded-2xl overflow-hidden bg-gradient-to-br from-${service.color}-50 to-white p-1 shadow-xl`}
               >
-                <div
-                  className={`relative rounded-2xl overflow-hidden bg-gradient-to-br from-${service.color}-50 to-white p-1 shadow-xl`}
-                >
-                  <div className=" absolute top-0 right-0 -mt-4 -mr-4 bg-blue-600 rounded-full p-2 shadow-lg">
-                   
-                  </div>
-
-                  <div className="bg-[#cfdde9] rounded-xl overflow-hidden">
-                    <div className="grid md:grid-cols-2 gap-0">
-                      <div className="order-2 md:order-1 p-8 md:p-10 flex flex-col justify-center">
-                        <h2 className={`text-3xl font-bold text-[#078389] mb-4 flex items-center`}>
-                          {service.title}
-                        </h2>
-
-                        <div className="mb-6 text-gray-700 space-y-4">
-                          <p>{service.description}</p>
-                          <p>{service.longDescription}</p>
-                        </div>
-
-                        <h3 className="text-xl font-semibold text-gray-900 mb-4">Services:</h3>
-                        <ul className="space-y-3 mb-8">
-                          {service.features.map((feature, idx) => (
-                            <li key={idx} className="flex items-start">
-                              <CheckCircle className={`h-5 w-5 text-[#008545] -500 mr-3 mt-0.5 flex-shrink-0`} />
-                              <span>{feature}</span>
-                            </li>
-                          ))}
-                        </ul>
-
-                        <div className="mt-auto">
-                          <Link
-                            to="/contact"
-                            className={`inline-flex items-center px-6 py-3 text-white rounded-lg  bg-[#04878f] hover:bg-[#4d9291] font-medium`}
-                          >
-                            Request This Service
-                            <ArrowRight className="ml-2 h-4 w-4" />
-                          </Link>
-                        </div>
+                <div className="absolute top-0 right-0 -mt-4 -mr-4 bg-blue-600 rounded-full p-2 shadow-lg"></div>
+            
+                <div className="bg-[#cfdde9] rounded-xl overflow-hidden">
+                  <div className="grid md:grid-cols-2 gap-0">
+                    <div className="order-2 md:order-1 p-8 md:p-10 flex flex-col justify-center">
+                      <h2 className="text-3xl font-bold text-[#078389] mb-4 flex items-center">
+                        {service.title}
+                      </h2>
+            
+                      <div className="mb-6 text-gray-700 space-y-4">
+                        <p>{service.description}</p>
+                        <p>{service.longDescription}</p>
                       </div>
-
-                      {/* <div className="order-1 md:order-2 h-64 md:h-auto">
-                        <div className="relative h-full w-full overflow-hidden">
-                          <img
-                            src={service.image || "/placeholder.svg"}
-                            alt={service.title}
-                            className="w-full h-full object-cover"
-                          />
-                          <div
-                            className={`absolute inset-0 bg-gradient-to-r from-${service.color}-900/50 to-transparent`}
-                          ></div>
-                        </div>
-                      </div> */}
+            
+                      <h3 className="text-xl font-semibold text-gray-900 mb-4">Services:</h3>
+                      <ul className="space-y-3 mb-8">
+                        {service.features.map((feature, idx) => (
+                          <li key={idx} className="flex items-start">
+                            <CheckCircle className="h-5 w-5 text-[#008545] mr-3 mt-0.5 flex-shrink-0" />
+                            <span>{feature}</span>
+                          </li>
+                        ))}
+                      </ul>
+            
+                      <div className="mt-auto">
+                        <Link
+                          to="/contact"
+                          className="inline-flex items-center px-6 py-3 text-white rounded-lg bg-[#04878f] hover:bg-[#4d9291] font-medium"
+                        >
+                          Request This Service
+                          <ArrowRight className="ml-2 h-4 w-4" />
+                        </Link>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
+            </div>
+            
             ))}
           </div>
         </div>
